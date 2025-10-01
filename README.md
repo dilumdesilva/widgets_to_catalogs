@@ -1,6 +1,6 @@
-# Widgets to Catalog App
+# MyFridge - Widgetbook Catalog Demo
 
-A comprehensive Flutter application demonstrating the usage of the [Widgetbook](https://pub.dev/packages/widgetbook) package. This project showcases **10 reusable widgets** with multiple variations, all accessible and testable through Widgetbook's interactive catalog interface.
+A comprehensive Flutter application demonstrating the usage of the [Widgetbook](https://pub.dev/packages/widgetbook) package through a real-world **fridge inventory management app**. This project showcases **6 reusable widgets** and **complete app screens** with comprehensive interactive testing capabilities.
 
 This project was developed by **Dilum De Silva** as part of the **"Widgets to Catalog"** tech talk.
 
@@ -10,31 +10,44 @@ This project was developed by **Dilum De Silva** as part of the **"Widgets to Ca
 
 ## Overview
 
-The **Widgets to Catalog App** serves as a reference implementation for integrating Widgetbook into Flutter projects. It demonstrates best practices for widget isolation, UI testing, and consistent rendering across mobile and web platforms.
+**MyFridge** serves as a reference implementation for integrating Widgetbook into Flutter projects. It demonstrates best practices for widget isolation, UI testing, screen-level testing, and consistent rendering across mobile and web platforms through a practical fridge inventory management application.
 
-## Features
+## App Features
 
-- 🧩 **10 Reusable Widgets** with multiple variations and interactive states
+🧊 **MyFridge Inventory Management:**
+- 📱 **Two-tab interface** - "My Fridge" and "To Buy" tabs
+- ⭐ **Favorite system** - Star items to sort them to the top
+- 🛒 **Smart shopping list** - "Buy More" button adds items to shopping list
+- 📊 **Quantity management** - Track how many of each item you have
+- 📅 **Expiry tracking** - Visual indicators for expired and expiring items
+- ➕ **Add new items** - Comprehensive form with categories, emojis, and expiry dates
+- 🏷️ **Item categories** - Dairy, Vegetables, Fruits, Meat, Beverages, Condiments, Snacks, Leftovers
+
+🎨 **Widgetbook Testing Environment:**
+- 🧩 **6 Reusable Widgets** with comprehensive interactive knobs
+- 📱 **Complete App Screens** testable in isolation
+- 🎛️ **Interactive knobs** for real-time widget customization
+- 🌓 **Light & Dark Themes** with seamless switching
 - 📱 **Cross-Platform Support** - runs on iOS, Android, and Web
-- 🎨 **Light & Dark Themes** with seamless switching
-- 🔧 **Interactive Knobs** for real-time widget customization
-- 📖 **Comprehensive Widgetbook Catalog** with organized component library
-- 🚀 **Live Demo App** showcasing all widgets in action
+- 🔄 **State testing** - Loading, empty, full data states
+- 📖 **Comprehensive catalog** with organized component library
 
 ## Widget Library
 
 This project includes the following reusable widgets:
 
-1. **ProductCard** - Card showing title, subtitle, price, image placeholder, favorite state, and rating
-2. **CustomSearchBar** - Input bar with placeholder text, prefix icon, and clear button
-3. **PrimaryTabBar** - Tab bar with 2–4 tabs, icons, and active index state
-4. **StarOnCard** - Card with an overlay star toggle and optional badge count
-5. **ActionButton** - Button with label, icon, disabled state, and size variations
-6. **ProfileAvatar** - Circular avatar with image or initials, optional status badge, and size variations
-7. **InfoListTile** - List tile with leading icon, title, subtitle, and trailing action
-8. **RatingRow** - Star rating row (0–5) with optional numeric label and interactive mode
-9. **Badge** - Small badge with text or number, color variations, and overflow behavior
-10. **MiniFormField** - Text input field with hint text, error state, and prefix/suffix icons
+### Core Fridge App Widgets:
+1. **FridgeItemCard** - Displays fridge items with image, name, brand, quantity, favorite star, expiry status, and "Buy More" button
+2. **ToBuyItemCard** - Shopping list item with checkbox, name, category, quantity, and time stamp
+3. **QuantitySelector** - Interactive quantity picker with three styles (filled, outlined, minimal)
+4. **AddItemDialog** - Complete form for adding new items with category selection, emoji picker, quantity, and expiry date
+5. **EmptyStateWidget** - Customizable empty state with emoji, title, message, and optional action button
+
+### Navigation & Structure:
+6. **PrimaryTabBar** - Tab bar component for switching between app sections
+
+### Screen Components:
+7. **FridgeAppScreenWidget** - Complete app screen testable in Widgetbook with different data states
 
 ## Prerequisites
 
@@ -79,13 +92,20 @@ flutter run -t lib/widgetbook/main_widgetbook.dart -d ios
 flutter run -t lib/widgetbook/main_widgetbook.dart -d android
 ```
 
-### Demo Application
+### MyFridge Application
 
-Run the sample app showcasing all widgets in a complete interface:
+Run the main fridge inventory management app:
 
 ```bash
 flutter run -t lib/main.dart
 ```
+
+Features available in the app:
+- Browse your fridge items on the "My Fridge" tab
+- Star items to mark them as favorites
+- Add items to your shopping list with the "Buy More" button
+- Manage your shopping list on the "To Buy" tab
+- Add new items with the floating action button
 
 ## Adding New Widgets to Widgetbook
 
@@ -156,22 +176,21 @@ context.knobs.boolean(
 
 ### Number Knobs
 ```dart
-context.knobs.number(
-  label: 'Price',
-  initialValue: 99.99,
-).toDouble()
+context.knobs.double.slider(
+  label: 'Quantity',
+  initialValue: 5.0,
+  max: 20.0,
+  min: 0.0,
+).toInt()
 ```
 
-### Option Knobs
+### List Knobs
 ```dart
-context.knobs.options(
-  label: 'Size',
-  options: [
-    const Option(label: 'Small', value: ButtonSize.small),
-    const Option(label: 'Medium', value: ButtonSize.medium),
-    const Option(label: 'Large', value: ButtonSize.large),
-  ],
-  initialOption: const Option(label: 'Medium', value: ButtonSize.medium),
+context.knobs.list(
+  label: 'Category',
+  options: FoodCategory.values,
+  initialOption: FoodCategory.dairy,
+  labelBuilder: (category) => category.displayName,
 )
 ```
 
@@ -180,52 +199,59 @@ context.knobs.options(
 ```
 widgets_to_catalog/
 ├── lib/
-│   ├── main.dart                      # Demo app entry point
+│   ├── main.dart                           # MyFridge app entry point
 │   ├── widgetbook/
-│   │   └── main_widgetbook.dart        # Widgetbook catalog entry point
-│   ├── widgets/                       # Reusable widget library
-│   │   ├── product_card.dart
-│   │   ├── search_bar.dart
-│   │   ├── primary_tab_bar.dart
-│   │   ├── star_on_card.dart
-│   │   ├── action_button.dart
-│   │   ├── profile_avatar.dart
-│   │   ├── info_list_tile.dart
-│   │   ├── rating_row.dart
-│   │   ├── badge.dart
-│   │   └── mini_form_field.dart
-│   ├── themes/
-│   │   └── app_themes.dart             # Light/Dark theme definitions
-│   └── utils/
-│       └── placeholder_image.dart      # Placeholder image utilities
-├── pubspec.yaml                       # Dependencies and project configuration
-└── README.md                          # This file
+│   │   ├── main_widgetbook.dart            # Widgetbook catalog entry point
+│   │   └── main_widgetbook.directories.g.dart  # Generated widgetbook structure
+│   ├── models/
+│   │   └── fridge_item.dart                # Data models for FridgeItem and ToBuyItem
+│   ├── data/
+│   │   └── sample_fridge_data.dart         # Sample data for testing
+│   ├── screens/
+│   │   └── fridge_app_screen.dart          # Main app screen with tabs
+│   ├── widgets/                            # Reusable widget library
+│   │   ├── fridge_item_card.dart           # Fridge item display card
+│   │   ├── to_buy_item_card.dart           # Shopping list item card
+│   │   ├── quantity_selector.dart          # Interactive quantity picker
+│   │   ├── add_item_dialog.dart            # Dialog for adding new items
+│   │   ├── empty_state_widget.dart         # Empty state display
+│   │   ├── primary_tab_bar.dart            # Tab navigation component
+│   │   └── fridge_app_screen_widget.dart   # Full app screen for Widgetbook testing
+│   └── themes/
+│       └── app_themes.dart                 # Light/Dark theme definitions
+├── pubspec.yaml                           # Dependencies and project configuration
+└── README.md                              # This file
 ```
 
 ## Best Practices
 
 - **Lightweight Widgets**: Keep widgets focused and reusable
-- **Placeholder Images**: Use the provided `PlaceholderImage` utility for consistent placeholder content
+- **Data Models**: Use strongly-typed models with proper state management
 - **Hot Reload**: Take advantage of Flutter's hot reload during development
 - **Knobs**: Use descriptive labels and sensible default values for knobs
 - **UseCase Naming**: Use clear, descriptive names for different widget states
 - **Theme Support**: Ensure widgets work well with both light and dark themes
+- **State Management**: Use StatefulWidget for components that need local state
+- **Sample Data**: Provide realistic sample data for comprehensive testing
 
 ## Widgetbook Features Demonstrated
 
 - **Theme Switching**: Toggle between light and dark themes
-- **Device Frames**: Preview widgets on different device form factors
+- **Device Frames**: Preview widgets on different device form factors (iPhone, Android, Desktop)
 - **Text Scaling**: Test accessibility with different text scale factors
 - **Alignment**: Test widget layouts with different alignments
 - **Inspector**: Debug widget properties and layout information
+- **Interactive Knobs**: Real-time widget customization with sliders, toggles, and dropdowns
+- **Screen Testing**: Full app screen testing with different states and data scenarios
 
 ## Development Workflow
 
-1. **Create Widget**: Develop your widget in isolation
-2. **Add UseCases**: Define different states and variations
-3. **Test in Widgetbook**: Use knobs to test all possible configurations
-4. **Integrate**: Add the widget to your main application
-5. **Regenerate**: Run build_runner when adding new widgets
+1. **Create Widget**: Develop your widget in isolation with proper data models
+2. **Add UseCases**: Define different states and variations with comprehensive knobs
+3. **Test in Widgetbook**: Use interactive knobs to test all possible configurations
+4. **Screen Testing**: Create full-screen use cases for complete app testing
+5. **Integrate**: Add the widget to your main MyFridge application
+6. **Regenerate**: Run build_runner when adding new widgets or use cases
 
 ## Troubleshooting
 
@@ -248,13 +274,14 @@ Ensure all widget files with `@UseCase` annotations are imported in `main_widget
 
 ## Contributing
 
-When contributing new widgets:
+When contributing new widgets to MyFridge:
 
 1. Follow the existing code style and patterns
-2. Add comprehensive UseCase examples
-3. Ensure widgets work across all supported platforms
-4. Update this README if adding significant features
-5. Test thoroughly in both the demo app and Widgetbook
+2. Add comprehensive UseCase examples with interactive knobs
+3. Ensure widgets work with the fridge/shopping list data models
+4. Test widgets across all supported platforms (iOS, Android, Web)
+5. Update this README if adding significant features
+6. Test thoroughly in both the MyFridge app and Widgetbook catalog
 
 ## Resources
 

@@ -11,131 +11,147 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
-import 'package:widgets_to_catalog/widgets/action_button.dart'
-    as _widgets_to_catalog_widgets_action_button;
-import 'package:widgets_to_catalog/widgets/badge.dart'
-    as _widgets_to_catalog_widgets_badge;
-import 'package:widgets_to_catalog/widgets/info_list_tile.dart'
-    as _widgets_to_catalog_widgets_info_list_tile;
-import 'package:widgets_to_catalog/widgets/mini_form_field.dart'
-    as _widgets_to_catalog_widgets_mini_form_field;
+import 'package:widgets_to_catalog/widgets/add_item_dialog.dart'
+    as _widgets_to_catalog_widgets_add_item_dialog;
+import 'package:widgets_to_catalog/widgets/empty_state_widget.dart'
+    as _widgets_to_catalog_widgets_empty_state_widget;
+import 'package:widgets_to_catalog/widgets/fridge_app_screen_widget.dart'
+    as _widgets_to_catalog_widgets_fridge_app_screen_widget;
+import 'package:widgets_to_catalog/widgets/fridge_item_card.dart'
+    as _widgets_to_catalog_widgets_fridge_item_card;
 import 'package:widgets_to_catalog/widgets/primary_tab_bar.dart'
     as _widgets_to_catalog_widgets_primary_tab_bar;
-import 'package:widgets_to_catalog/widgets/product_card.dart'
-    as _widgets_to_catalog_widgets_product_card;
-import 'package:widgets_to_catalog/widgets/profile_avatar.dart'
-    as _widgets_to_catalog_widgets_profile_avatar;
-import 'package:widgets_to_catalog/widgets/rating_row.dart'
-    as _widgets_to_catalog_widgets_rating_row;
-import 'package:widgets_to_catalog/widgets/search_bar.dart'
-    as _widgets_to_catalog_widgets_search_bar;
-import 'package:widgets_to_catalog/widgets/star_on_card.dart'
-    as _widgets_to_catalog_widgets_star_on_card;
+import 'package:widgets_to_catalog/widgets/quantity_selector.dart'
+    as _widgets_to_catalog_widgets_quantity_selector;
+import 'package:widgets_to_catalog/widgets/to_buy_item_card.dart'
+    as _widgets_to_catalog_widgets_to_buy_item_card;
 
 final directories = <_widgetbook.WidgetbookNode>[
   _widgetbook.WidgetbookFolder(
     name: 'widgets',
     children: [
       _widgetbook.WidgetbookComponent(
-        name: 'ActionButton',
+        name: 'AddItemDialog',
         useCases: [
           _widgetbook.WidgetbookUseCase(
-            name: 'Default',
-            builder:
-                _widgets_to_catalog_widgets_action_button.actionButtonDefault,
+            name: 'Interactive - Form Testing',
+            builder: _widgets_to_catalog_widgets_add_item_dialog
+                .addItemDialogInteractive,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Loading State',
-            builder:
-                _widgets_to_catalog_widgets_action_button.actionButtonLoading,
-          ),
-          _widgetbook.WidgetbookUseCase(
-            name: 'With Icon',
-            builder:
-                _widgets_to_catalog_widgets_action_button.actionButtonWithIcon,
+            name: 'Quick Add - Essential Fields Only',
+            builder: _widgets_to_catalog_widgets_add_item_dialog
+                .addItemDialogMinimal,
           ),
         ],
       ),
       _widgetbook.WidgetbookComponent(
-        name: 'Badge',
+        name: 'EmptyStateWidget',
         useCases: [
           _widgetbook.WidgetbookUseCase(
-            name: 'Default',
-            builder: _widgets_to_catalog_widgets_badge.badgeDefault,
+            name: 'Empty Fridge - First Use',
+            builder:
+                _widgets_to_catalog_widgets_empty_state_widget.emptyStateFridge,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Number Badge',
-            builder: _widgets_to_catalog_widgets_badge.badgeNumber,
+            name: 'Empty Shopping List - Nothing to Buy',
+            builder: _widgets_to_catalog_widgets_empty_state_widget
+                .emptyStateShopping,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Overflow Text',
-            builder: _widgets_to_catalog_widgets_badge.badgeOverflow,
+            name: 'Error State - Something Wrong',
+            builder:
+                _widgets_to_catalog_widgets_empty_state_widget.emptyStateError,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Status Badge',
-            builder: _widgets_to_catalog_widgets_badge.badgeStatus,
+            name: 'Interactive - Customize Empty State',
+            builder: _widgets_to_catalog_widgets_empty_state_widget
+                .emptyStateInteractive,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'No Search Results - Help Finding',
+            builder:
+                _widgets_to_catalog_widgets_empty_state_widget.emptyStateSearch,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Success State - No Action Needed',
+            builder: _widgets_to_catalog_widgets_empty_state_widget
+                .emptyStateNoButton,
           ),
         ],
       ),
       _widgetbook.WidgetbookComponent(
-        name: 'CustomSearchBar',
+        name: 'FridgeAppScreenWidget',
         useCases: [
           _widgetbook.WidgetbookUseCase(
-            name: 'Default',
-            builder: _widgets_to_catalog_widgets_search_bar.searchBarDefault,
+            name: 'Active Household - Full Data',
+            builder: _widgets_to_catalog_widgets_fridge_app_screen_widget
+                .fridgeAppScreenFull,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Disabled',
-            builder: _widgets_to_catalog_widgets_search_bar.searchBarDisabled,
+            name: 'First Launch - New User Experience',
+            builder: _widgets_to_catalog_widgets_fridge_app_screen_widget
+                .fridgeAppScreenEmpty,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'With Filter Icon',
-            builder: _widgets_to_catalog_widgets_search_bar.searchBarWithFilter,
+            name: 'Interactive - Complete App Testing',
+            builder: _widgets_to_catalog_widgets_fridge_app_screen_widget
+                .fridgeAppScreenInteractive,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Loading State - Data Fetching',
+            builder: _widgets_to_catalog_widgets_fridge_app_screen_widget
+                .fridgeAppScreenLoading,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Shopping Mode - To Buy Tab',
+            builder: _widgets_to_catalog_widgets_fridge_app_screen_widget
+                .fridgeAppScreenShoppingTab,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Well Stocked - Empty Shopping List',
+            builder: _widgets_to_catalog_widgets_fridge_app_screen_widget
+                .fridgeAppScreenEmptyShoppingList,
           ),
         ],
       ),
       _widgetbook.WidgetbookComponent(
-        name: 'InfoListTile',
+        name: 'FridgeItemCard',
         useCases: [
           _widgetbook.WidgetbookUseCase(
-            name: 'Default',
-            builder:
-                _widgets_to_catalog_widgets_info_list_tile.infoListTileDefault,
+            name: 'Empty Item - Needs Restocking',
+            builder: _widgets_to_catalog_widgets_fridge_item_card
+                .fridgeItemCardZeroQuantity,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Disabled',
-            builder:
-                _widgets_to_catalog_widgets_info_list_tile.infoListTileDisabled,
+            name: 'Expired Item - Requires Attention',
+            builder: _widgets_to_catalog_widgets_fridge_item_card
+                .fridgeItemCardExpired,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'With Switch',
-            builder: _widgets_to_catalog_widgets_info_list_tile
-                .infoListTileWithSwitch,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'MiniFormField',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Default',
-            builder: _widgets_to_catalog_widgets_mini_form_field
-                .miniFormFieldDefault,
+            name: 'Expiring Soon - Use First Warning',
+            builder: _widgets_to_catalog_widgets_fridge_item_card
+                .fridgeItemCardExpiringSoon,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Multiline',
-            builder: _widgets_to_catalog_widgets_mini_form_field
-                .miniFormFieldMultiline,
+            name: 'Favorite Item - Priority Display',
+            builder: _widgets_to_catalog_widgets_fridge_item_card
+                .fridgeItemCardFavorite,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Password Field',
-            builder: _widgets_to_catalog_widgets_mini_form_field
-                .miniFormFieldPassword,
+            name: 'Fresh Item - Perfect Condition',
+            builder: _widgets_to_catalog_widgets_fridge_item_card
+                .fridgeItemCardFresh,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'With Error',
-            builder:
-                _widgets_to_catalog_widgets_mini_form_field.miniFormFieldError,
+            name: 'High Quantity - Well Stocked',
+            builder: _widgets_to_catalog_widgets_fridge_item_card
+                .fridgeItemCardHighQuantity,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Interactive - Customize Item',
+            builder: _widgets_to_catalog_widgets_fridge_item_card
+                .fridgeItemCardInteractive,
           ),
         ],
       ),
@@ -160,74 +176,62 @@ final directories = <_widgetbook.WidgetbookNode>[
         ],
       ),
       _widgetbook.WidgetbookComponent(
-        name: 'ProductCard',
+        name: 'QuantitySelector',
         useCases: [
           _widgetbook.WidgetbookUseCase(
-            name: 'Default',
-            builder:
-                _widgets_to_catalog_widgets_product_card.productCardDefault,
+            name: 'Empty State - Zero Quantity',
+            builder: _widgets_to_catalog_widgets_quantity_selector
+                .quantitySelectorAtMinimum,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Favorite',
-            builder:
-                _widgets_to_catalog_widgets_product_card.productCardFavorite,
+            name: 'Full Stock - Maximum Quantity',
+            builder: _widgets_to_catalog_widgets_quantity_selector
+                .quantitySelectorAtMaximum,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'No Rating',
-            builder:
-                _widgets_to_catalog_widgets_product_card.productCardNoRating,
+            name: 'Interactive - Style Testing',
+            builder: _widgets_to_catalog_widgets_quantity_selector
+                .quantitySelectorInteractive,
+          ),
+          _widgetbook.WidgetbookUseCase(
+            name: 'Style Comparison - Visual Options',
+            builder: _widgets_to_catalog_widgets_quantity_selector
+                .quantitySelectorAllStyles,
           ),
         ],
       ),
       _widgetbook.WidgetbookComponent(
-        name: 'ProfileAvatar',
+        name: 'ToBuyItemCard',
         useCases: [
           _widgetbook.WidgetbookUseCase(
-            name: 'Default',
-            builder:
-                _widgets_to_catalog_widgets_profile_avatar.profileAvatarDefault,
+            name: 'Bulk Purchase - High Quantity',
+            builder: _widgets_to_catalog_widgets_to_buy_item_card
+                .toBuyItemCardHighQuantity,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Offline Status',
-            builder:
-                _widgets_to_catalog_widgets_profile_avatar.profileAvatarOffline,
+            name: 'Interactive - Customize Shopping Item',
+            builder: _widgets_to_catalog_widgets_to_buy_item_card
+                .toBuyItemCardInteractive,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'With Status Badge',
-            builder: _widgets_to_catalog_widgets_profile_avatar
-                .profileAvatarWithStatus,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'RatingRow',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Default',
-            builder: _widgets_to_catalog_widgets_rating_row.ratingRowDefault,
+            name: 'No Category - Simple Item',
+            builder: _widgets_to_catalog_widgets_to_buy_item_card
+                .toBuyItemCardNoCategory,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Interactive',
-            builder:
-                _widgets_to_catalog_widgets_rating_row.ratingRowInteractive,
+            name: 'Purchased Item - Completed',
+            builder: _widgets_to_catalog_widgets_to_buy_item_card
+                .toBuyItemCardPurchased,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'With Label',
-            builder: _widgets_to_catalog_widgets_rating_row.ratingRowWithLabel,
-          ),
-        ],
-      ),
-      _widgetbook.WidgetbookComponent(
-        name: 'StarOnCard',
-        useCases: [
-          _widgetbook.WidgetbookUseCase(
-            name: 'Default',
-            builder: _widgets_to_catalog_widgets_star_on_card.starOnCardDefault,
+            name: 'Recently Added - Fresh Addition',
+            builder: _widgets_to_catalog_widgets_to_buy_item_card
+                .toBuyItemCardRecentlyAdded,
           ),
           _widgetbook.WidgetbookUseCase(
-            name: 'Starred with Badge',
-            builder: _widgets_to_catalog_widgets_star_on_card
-                .starOnCardStarredWithBadge,
+            name: 'Urgent Item - Old Addition',
+            builder: _widgets_to_catalog_widgets_to_buy_item_card
+                .toBuyItemCardUrgent,
           ),
         ],
       ),
