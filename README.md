@@ -80,16 +80,16 @@ This project includes the following reusable widgets:
 Run the interactive Widgetbook catalog to explore and test all widgets:
 
 ```bash
-flutter run -t lib/widgetbook/main_widgetbook.dart -d chrome
+flutter run -t widgetbook/main_widgetbook.dart -d chrome
 ```
 
 **Alternative platforms:**
 ```bash
 # iOS Simulator
-flutter run -t lib/widgetbook/main_widgetbook.dart -d ios
+flutter run -t widgetbook/main_widgetbook.dart -d ios
 
 # Android Emulator
-flutter run -t lib/widgetbook/main_widgetbook.dart -d android
+flutter run -t widgetbook/main_widgetbook.dart -d android
 ```
 
 ### MyFridge Application
@@ -111,26 +111,31 @@ Features available in the app:
 
 Follow these steps to add a new widget to the Widgetbook catalog:
 
-1. **Create your widget** in the `lib/widgets/` directory:
+1. **Create your widget** in the appropriate `lib/widgets/` subdirectory:
    ```dart
-   // lib/widgets/my_new_widget.dart
+   // lib/widgets/buttons/my_new_button.dart
    import 'package:flutter/material.dart';
-   import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
-   class MyNewWidget extends StatelessWidget {
-     // Your widget implementation
+   class MyNewButton extends StatelessWidget {
+     // Your widget implementation (no Widgetbook imports here)
    }
    ```
 
-2. **Add UseCase annotations** for different variations:
+2. **Create story file** in the matching `widgetbook/` subdirectory:
    ```dart
+   // widgetbook/buttons/my_new_button_stories.dart
+   import 'package:flutter/material.dart';
+   import 'package:widgetbook/widgetbook.dart';
+   import 'package:widgetbook_annotation/widgetbook_annotation.dart';
+   import 'package:widgets_to_catalog/widgets/buttons/my_new_button.dart';
+
    @UseCase(
      name: 'Default',
-     type: MyNewWidget,
+     type: MyNewButton,
    )
-   Widget myNewWidgetDefault(BuildContext context) {
-     return MyNewWidget(
-       title: context.knobs.text(
+   Widget myNewButtonDefault(BuildContext context) {
+     return MyNewButton(
+       title: context.knobs.string(
          label: 'Title',
          initialValue: 'Default Title',
        ),
@@ -142,17 +147,12 @@ Follow these steps to add a new widget to the Widgetbook catalog:
    }
    ```
 
-3. **Import the widget** in `lib/widgetbook/main_widgetbook.dart`:
-   ```dart
-   import '../widgets/my_new_widget.dart';
-   ```
-
-4. **Regenerate the catalog:**
+3. **Regenerate the catalog:**
    ```bash
    flutter pub run build_runner build
    ```
 
-5. **Hot reload or restart** to see your new widget in Widgetbook.
+4. **Hot reload or restart** to see your new widget in Widgetbook.
 
 ## Knobs Usage Examples
 
@@ -200,9 +200,6 @@ context.knobs.list(
 widgets_to_catalog/
 ├── lib/
 │   ├── main.dart                           # MyFridge app entry point
-│   ├── widgetbook/
-│   │   ├── main_widgetbook.dart            # Widgetbook catalog entry point
-│   │   └── main_widgetbook.directories.g.dart  # Generated widgetbook structure
 │   ├── models/
 │   │   └── fridge_item.dart                # Data models for FridgeItem and ToBuyItem
 │   ├── data/
@@ -210,21 +207,47 @@ widgets_to_catalog/
 │   ├── screens/
 │   │   └── fridge_app_screen.dart          # Main app screen with tabs
 │   ├── widgets/                            # Reusable widget library
-│   │   ├── fridge_item_card.dart           # Fridge item display card
-│   │   ├── to_buy_item_card.dart           # Shopping list item card
-│   │   ├── quantity_selector.dart          # Interactive quantity picker
-│   │   ├── add_item_dialog.dart            # Dialog for adding new items
-│   │   ├── empty_state_widget.dart         # Empty state display
-│   │   ├── primary_tab_bar.dart            # Tab navigation component
-│   │   └── fridge_app_screen_widget.dart   # Full app screen for Widgetbook testing
+│   │   ├── buttons/
+│   │   │   └── buy_more_button.dart        # Reusable button component
+│   │   ├── cards/
+│   │   │   ├── fridge_item_card.dart       # Fridge item display card
+│   │   │   └── to_buy_item_card.dart       # Shopping list item card
+│   │   ├── inputs/
+│   │   │   └── quantity_selector.dart      # Interactive quantity picker
+│   │   ├── generic/
+│   │   │   ├── add_item_dialog.dart        # Dialog for adding new items
+│   │   │   ├── empty_state_widget.dart     # Empty state display
+│   │   │   └── primary_tab_bar.dart        # Tab navigation component
+│   │   └── screens/
+│   │       └── fridge_app_screen.dart      # Full app screen component
 │   └── themes/
 │       └── app_themes.dart                 # Light/Dark theme definitions
-├── pubspec.yaml                           # Dependencies and project configuration
-└── README.md                              # This file
+├── widgetbook/                             # Widgetbook stories (outside lib/)
+│   ├── main_widgetbook.dart                # Widgetbook catalog entry point
+│   ├── main_widgetbook.directories.g.dart  # Generated widgetbook structure
+│   ├── buttons/
+│   │   └── buy_more_button_stories.dart    # Button widget stories
+│   ├── cards/
+│   │   ├── fridge_item_card_stories.dart   # Card widget stories
+│   │   └── to_buy_item_card_stories.dart
+│   ├── inputs/
+│   │   └── quantity_selector_stories.dart  # Input widget stories
+│   ├── generic/
+│   │   ├── add_item_dialog_stories.dart    # Generic widget stories
+│   │   ├── empty_state_widget_stories.dart
+│   │   └── primary_tab_bar_stories.dart
+│   └── screens/
+│       └── fridge_app_screen_stories.dart  # Screen-level stories
+├── build.yaml                              # Build configuration for widgetbook folder
+├── pubspec.yaml                            # Dependencies and project configuration
+└── README.md                               # This file
 ```
 
 ## Best Practices
 
+- **Separation of Concerns**: Keep widget code in `lib/widgets/` and stories in `widgetbook/`
+- **Mirrored Structure**: Match the directory structure between `lib/widgets/` and `widgetbook/`
+- **Story Naming**: Name story files with `_stories.dart` suffix (e.g., `my_widget_stories.dart`)
 - **Lightweight Widgets**: Keep widgets focused and reusable
 - **Data Models**: Use strongly-typed models with proper state management
 - **Hot Reload**: Take advantage of Flutter's hot reload during development
@@ -266,7 +289,7 @@ flutter pub run build_runner build
 ```
 
 ### Missing Generated Files
-Ensure all widget files with `@UseCase` annotations are imported in `main_widgetbook.dart`.
+Ensure all story files with `@UseCase` annotations are in the `widgetbook/` directory. The build runner will automatically discover them.
 
 ### Platform-Specific Issues
 - **Web**: Some widgets may require web-specific implementations

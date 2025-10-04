@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart';
 
-import '../themes/app_themes.dart';
+import 'package:widgets_to_catalog/themes/app_themes.dart';
 import 'main_widgetbook.directories.g.dart';
 
 void main() {
@@ -34,11 +34,12 @@ class WidgetbookApp extends StatelessWidget {
           devices: [
             Devices.ios.iPhoneSE,
             Devices.ios.iPhone12,
-            Devices.ios.iPhone13,
+            Devices.ios.iPhone13ProMax,
             Devices.android.samsungGalaxyS20,
             Devices.windows.laptop,
             Devices.macOS.macBookPro,
           ],
+          initialDevice: Devices.ios.iPhone13ProMax,
         ),
         TextScaleAddon(
           scales: [0.8, 1.0, 1.2, 1.4, 1.6, 2.0],
@@ -47,7 +48,26 @@ class WidgetbookApp extends StatelessWidget {
         InspectorAddon(),
       ],
       appBuilder: (context, child) {
-        return child;
+        return Scaffold(
+          backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
+          appBar: AppBar(
+            title: const Text('Widget Catalog'),
+            centerTitle: true,
+            elevation: 0,
+          ),
+          body: SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16.0),
+                child: IntrinsicWidth(
+                  child: IntrinsicHeight(
+                    child: child,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
       },
     );
   }

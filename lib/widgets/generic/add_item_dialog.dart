@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widgetbook_annotation/widgetbook_annotation.dart';
-import '../models/fridge_item.dart';
+import '../../models/fridge_item.dart';
 
 class AddItemDialog extends StatefulWidget {
   final Function(FridgeItem) onAddItem;
@@ -332,32 +331,4 @@ class _AddItemDialogState extends State<AddItemDialog> {
     _brandController.dispose();
     super.dispose();
   }
-}
-
-@UseCase(
-  name: 'Interactive - Form Testing',
-  type: AddItemDialog,
-)
-Widget addItemDialogInteractive(BuildContext context) {
-
-  return AddItemDialog(
-    onAddItem: (item) {
-      // This is just for widgetbook preview
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Would add: ${item.name}')),
-      );
-    },
-  );
-}
-
-@UseCase(
-  name: 'Quick Add - Essential Fields Only',
-  type: AddItemDialog,
-)
-Widget addItemDialogMinimal(BuildContext context) {
-  return AddItemDialog(
-    onAddItem: (item) {
-      // This is just for widgetbook preview
-    },
-  );
 }

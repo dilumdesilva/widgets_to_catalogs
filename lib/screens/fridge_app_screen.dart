@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import '../models/fridge_item.dart';
 import '../data/sample_fridge_data.dart';
-import '../widgets/fridge_item_card.dart';
-import '../widgets/to_buy_item_card.dart';
-import '../widgets/primary_tab_bar.dart';
-import '../widgets/add_item_dialog.dart';
+import '../widgets/cards/fridge_item_card.dart';
+import '../widgets/cards/to_buy_item_card.dart';
+import '../widgets/generic/primary_tab_bar.dart';
+import '../widgets/generic/add_item_dialog.dart';
 
 class FridgeAppScreen extends StatefulWidget {
   const FridgeAppScreen({super.key});
