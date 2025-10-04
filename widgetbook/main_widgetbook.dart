@@ -48,26 +48,7 @@ class WidgetbookApp extends StatelessWidget {
         InspectorAddon(),
       ],
       appBuilder: (context, child) {
-        return Scaffold(
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow,
-          appBar: AppBar(
-            title: const Text('Widget Catalog'),
-            centerTitle: true,
-            elevation: 0,
-          ),
-          body: SafeArea(
-            child: Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(16.0),
-                child: IntrinsicWidth(
-                  child: IntrinsicHeight(
-                    child: child,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
+        return child;
       },
     );
   }

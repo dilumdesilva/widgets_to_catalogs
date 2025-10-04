@@ -6,17 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b6759ddc-8020-41de-990f-ca73185cabcb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/fridge_app_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/fridge_app_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgetbook/main_widgetbook.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgetbook/main_widgetbook.directories.g.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/add_item_dialog.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/empty_state_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/fridge_app_screen_widget.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/fridge_item_card.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/primary_tab_bar.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/quantity_selector.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/to_buy_item_card.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/widgetbook/main_widgetbook.dart" beforeDir="false" afterPath="$PROJECT_DIR$/widgetbook/main_widgetbook.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
